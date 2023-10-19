@@ -4,13 +4,13 @@ import com.codestates.seb41_main_034.cart.dto.CartItemDto;
 import com.codestates.seb41_main_034.common.JsonListHelper;
 import com.codestates.seb41_main_034.common.auditing.entity.DateAuditable;
 import com.codestates.seb41_main_034.product.entity.Product;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.*;
 import java.util.List;
 
 @Getter

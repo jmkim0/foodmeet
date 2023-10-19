@@ -2,6 +2,7 @@ package com.codestates.seb41_main_034.common.exception;
 
 import com.codestates.seb41_main_034.common.exception.response.ErrorInfo;
 import com.codestates.seb41_main_034.common.response.Response;
+import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
-import javax.validation.ConstraintViolationException;
 import java.util.Optional;
 
 @Slf4j

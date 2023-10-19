@@ -8,9 +8,14 @@ import com.codestates.seb41_main_034.auth.utils.CustomAuthorityUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.FormLoginConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HttpBasicConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,8 +27,10 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import java.util.List;
 
 import static org.springframework.security.config.Customizer.withDefaults;
+import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
 
 @AllArgsConstructor
+@Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
 
@@ -41,53 +48,57 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .headers().frameOptions().sameOrigin()
-                .and()
-                .csrf().disable()
+                .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin))
+                .csrf(AbstractHttpConfigurer::disable)
                 .cors(withDefaults())
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .formLogin().disable()
-                .httpBasic().disable()
-                .exceptionHandling()
-                .authenticationEntryPoint(new UserAuthenticationEntryPoint(mapper))
-                .accessDeniedHandler(new UserAccessDeniedHandler(mapper))
-                .and()
+                .sessionManagement(sessionManagement -> {
+                    sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                })
+                .formLogin(FormLoginConfigurer::disable)
+                .httpBasic(HttpBasicConfigurer::disable)
+                .exceptionHandling(exceptionHandling -> {
+                    exceptionHandling.authenticationEntryPoint(new UserAuthenticationEntryPoint(mapper))
+                            .accessDeniedHandler(new UserAccessDeniedHandler(mapper));
+                })
                 .apply(new CustomFilterConfigurer(jwtTokenizer, authorityUtils, customUserDetailsService, mapper))
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
-                        .antMatchers(HttpMethod.GET, "/api/v1/user/duplicate-check").permitAll()
-                        .antMatchers(HttpMethod.GET, "/api/v1/user/*").hasRole("USER")
-                        .antMatchers(HttpMethod.PATCH, "/api/v1/user/*").hasRole("USER")
-                        .antMatchers(HttpMethod.DELETE, "/api/v1/user/*").hasRole("USER")
-                        .antMatchers(HttpMethod.POST, "/api/v1/user-address").hasRole("USER")
-                        .antMatchers(HttpMethod.GET, "/api/v1/user-address").hasRole("USER")
-                        .antMatchers(HttpMethod.GET, "/api/v1/user-address/*").hasRole("USER")
-                        .antMatchers(HttpMethod.PATCH, "/api/v1/user-address/*").hasRole("USER")
-                        .antMatchers(HttpMethod.DELETE, "/api/v1/user-address/*").hasRole("USER")
-                        .antMatchers(HttpMethod.POST, "/api/v1/product").hasRole("ADMIN")
-                        .antMatchers(HttpMethod.PATCH, "/api/v1/product/*").hasRole("ADMIN")
-                        .antMatchers(HttpMethod.POST, "/api/v1/cart").hasRole("USER")
-                        .antMatchers(HttpMethod.GET, "/api/v1/cart").hasRole("USER")
-                        .antMatchers(HttpMethod.GET, "/api/v1/cart/*").hasRole("USER")
-                        .antMatchers(HttpMethod.PATCH, "/api/v1/cart/*").hasRole("USER")
-                        .antMatchers(HttpMethod.DELETE, "/api/v1/cart/*").hasRole("USER")
-                        .antMatchers(HttpMethod.GET, "/api/v1/order/*").hasRole("USER")
-                        .antMatchers(HttpMethod.POST, "/api/v1/ordering").hasRole("USER")
-                        .antMatchers(HttpMethod.PATCH, "/api/v1/ordering/*/prepare").hasRole("ADMIN")
-                        .antMatchers(HttpMethod.PATCH, "/api/v1/ordering/*/ship").hasRole("ADMIN")
-                        .antMatchers(HttpMethod.PATCH, "/api/v1/ordering/*/confirm-cancellation").hasRole("ADMIN")
-                        .antMatchers(HttpMethod.PATCH, "/api/v1/ordering/**").hasRole("USER")
-                        .antMatchers(HttpMethod.POST, "/api/v1/question").hasRole("USER")
-                        .antMatchers(HttpMethod.GET, "/api/v1/question/question-history").hasRole("USER")
-                        .antMatchers(HttpMethod.PATCH, "/api/v1/question/*").hasRole("USER")
-                        .antMatchers(HttpMethod.DELETE, "/api/v1/question/*").hasRole("USER")
-                        .antMatchers(HttpMethod.POST, "/api/v1/question/*/answer").hasRole("ADMIN")
-                        .antMatchers(HttpMethod.PATCH, "/api/v1/question/*/answer").hasRole("ADMIN")
-                        .antMatchers(HttpMethod.POST, "/api/v1/review").hasRole("USER")
-                        .antMatchers(HttpMethod.GET, "/api/v1/review/review-history").hasRole("USER")
-                        .antMatchers(HttpMethod.PATCH, "/api/v1/review/*").hasRole("USER")
-                        .antMatchers(HttpMethod.DELETE, "/api/v1/review/*").hasRole("USER")
+                        .requestMatchers(antMatcher(HttpMethod.GET, "/api/v1/user/duplicate-check")).permitAll()
+                        .requestMatchers(
+                                antMatcher(HttpMethod.POST, "/api/v1/product"),
+                                antMatcher(HttpMethod.PATCH, "/api/v1/product/*"),
+                                antMatcher(HttpMethod.PATCH, "/api/v1/ordering/*/prepare"),
+                                antMatcher(HttpMethod.PATCH, "/api/v1/ordering/*/ship"),
+                                antMatcher(HttpMethod.PATCH, "/api/v1/ordering/*/confirm-cancellation"),
+                                antMatcher(HttpMethod.POST, "/api/v1/question/*/answer"),
+                                antMatcher(HttpMethod.PATCH, "/api/v1/question/*/answer")
+                        ).hasRole("ADMIN")
+                        .requestMatchers(
+                                antMatcher(HttpMethod.GET, "/api/v1/user/*"),
+                                antMatcher(HttpMethod.PATCH, "/api/v1/user/*"),
+                                antMatcher(HttpMethod.DELETE, "/api/v1/user/*"),
+                                antMatcher(HttpMethod.POST, "/api/v1/user-address"),
+                                antMatcher(HttpMethod.GET, "/api/v1/user-address"),
+                                antMatcher(HttpMethod.GET, "/api/v1/user-address/*"),
+                                antMatcher(HttpMethod.PATCH, "/api/v1/user-address/*"),
+                                antMatcher(HttpMethod.DELETE, "/api/v1/user-address/*"),
+                                antMatcher(HttpMethod.POST, "/api/v1/cart"),
+                                antMatcher(HttpMethod.GET, "/api/v1/cart"),
+                                antMatcher(HttpMethod.GET, "/api/v1/cart/*"),
+                                antMatcher(HttpMethod.PATCH, "/api/v1/cart/*"),
+                                antMatcher(HttpMethod.DELETE, "/api/v1/cart/*"),
+                                antMatcher(HttpMethod.GET, "/api/v1/order/*"),
+                                antMatcher(HttpMethod.POST, "/api/v1/ordering"),
+                                antMatcher(HttpMethod.PATCH, "/api/v1/ordering/**"),
+                                antMatcher(HttpMethod.POST, "/api/v1/question"),
+                                antMatcher(HttpMethod.GET, "/api/v1/question/question-history"),
+                                antMatcher(HttpMethod.PATCH, "/api/v1/question/*"),
+                                antMatcher(HttpMethod.DELETE, "/api/v1/question/*"),
+                                antMatcher(HttpMethod.POST, "/api/v1/review"),
+                                antMatcher(HttpMethod.GET, "/api/v1/review/review-history"),
+                                antMatcher(HttpMethod.PATCH, "/api/v1/review/*"),
+                                antMatcher(HttpMethod.DELETE, "/api/v1/review/*")
+                        ).hasRole("USER")
                         .anyRequest().permitAll()
                 );
         return http.build();

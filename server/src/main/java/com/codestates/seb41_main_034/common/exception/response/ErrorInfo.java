@@ -2,12 +2,12 @@ package com.codestates.seb41_main_034.common.exception.response;
 
 import com.codestates.seb41_main_034.common.exception.ExceptionCode;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import jakarta.validation.ConstraintViolation;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 
-import javax.validation.ConstraintViolation;
 import java.util.List;
 import java.util.Set;
 

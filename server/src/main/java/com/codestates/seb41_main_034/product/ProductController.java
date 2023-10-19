@@ -6,6 +6,9 @@ import com.codestates.seb41_main_034.product.dto.ProductDto;
 import com.codestates.seb41_main_034.product.dto.ProductPatchDto;
 import com.codestates.seb41_main_034.product.dto.ProductPostDto;
 import com.codestates.seb41_main_034.product.entity.ProductCategory;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
@@ -16,9 +19,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.Valid;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.Size;
 import java.util.List;
 
 @AllArgsConstructor

@@ -1,9 +1,8 @@
 package com.codestates.seb41_main_034.order.dto;
 
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-
-import javax.validation.constraints.Positive;
 
 @Getter
 @AllArgsConstructor

@@ -1,8 +1,8 @@
 package com.codestates.seb41_main_034.review.dto;
 
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 
-import javax.validation.constraints.Size;
 import java.util.List;
 
 @Getter

@@ -44,8 +44,6 @@ public class UserAddressFacade {
         return userAddress.toDto(primaryId);
     }
 
-    // TODO: 조회, 수정, 삭제는 회원 인증 정보로 인가해야 한다.
-
     public UserAddressDto readUserAddress(long userAddressId) {
         UserAddress userAddress = userAddressService.readUserAddress(userAddressId);
 

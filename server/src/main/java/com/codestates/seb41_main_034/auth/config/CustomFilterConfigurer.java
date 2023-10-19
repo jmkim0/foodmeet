@@ -37,4 +37,9 @@ public class CustomFilterConfigurer extends AbstractHttpConfigurer<CustomFilterC
                 .addFilter(jwtAuthenticationFilter)
                 .addFilterAfter(jwtVerificationFilter, JwtAuthenticationFilter.class);
     }
+
+    @Override
+    public HttpSecurity and() {
+        return getBuilder();
+    }
 }

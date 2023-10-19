@@ -6,16 +6,15 @@ import com.codestates.seb41_main_034.user.dto.UserPatchDto;
 import com.codestates.seb41_main_034.user.dto.UserPostDto;
 import com.codestates.seb41_main_034.user.entity.User;
 import com.codestates.seb41_main_034.user.service.UserService;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Positive;
 
 @AllArgsConstructor
 @RestController

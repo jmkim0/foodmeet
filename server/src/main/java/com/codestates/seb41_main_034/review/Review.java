@@ -4,12 +4,11 @@ import com.codestates.seb41_main_034.common.JsonListHelper;
 import com.codestates.seb41_main_034.common.auditing.entity.Auditable;
 import com.codestates.seb41_main_034.product.entity.Product;
 import com.codestates.seb41_main_034.review.dto.ReviewDto;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Type;
 
-import javax.persistence.*;
 import java.util.List;
 
 @Getter
@@ -39,7 +38,6 @@ public class Review extends Auditable {
     }
 
     @Column(nullable = false)
-    @Type(type = "text")
     private String body;
 
     public ReviewDto toDto(JsonListHelper helper, Product product, String createdByName) {

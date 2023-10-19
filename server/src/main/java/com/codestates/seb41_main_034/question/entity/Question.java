@@ -5,11 +5,10 @@ import com.codestates.seb41_main_034.common.auditing.entity.Auditable;
 import com.codestates.seb41_main_034.product.entity.Product;
 import com.codestates.seb41_main_034.question.dto.AnswerDto;
 import com.codestates.seb41_main_034.question.dto.QuestionDto;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Type;
 
-import javax.persistence.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -30,7 +29,6 @@ public class Question extends Auditable {
     @Column(nullable = false)
     private int productId;
 
-    @Type(type = "text")
     private String body;
 
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "question")

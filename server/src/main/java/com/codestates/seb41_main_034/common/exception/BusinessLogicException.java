@@ -2,9 +2,9 @@ package com.codestates.seb41_main_034.common.exception;
 
 import lombok.Getter;
 
+@Getter
 public class BusinessLogicException extends RuntimeException {
 
-    @Getter
     private final ExceptionCode exceptionCode;
 
     public BusinessLogicException(ExceptionCode exceptionCode) {

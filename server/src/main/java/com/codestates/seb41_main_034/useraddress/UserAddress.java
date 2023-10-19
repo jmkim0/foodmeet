@@ -3,10 +3,9 @@ package com.codestates.seb41_main_034.useraddress;
 import com.codestates.seb41_main_034.common.Address;
 import com.codestates.seb41_main_034.common.auditing.entity.DateAuditable;
 import com.codestates.seb41_main_034.useraddress.dto.UserAddressDto;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
-import javax.persistence.*;
 
 @Getter
 @Setter

@@ -1,8 +1,7 @@
 package com.codestates.seb41_main_034.question.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
-
-import javax.validation.constraints.NotBlank;
 
 @Getter
 public class QuestionPatchDto {

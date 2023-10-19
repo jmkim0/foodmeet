@@ -2,14 +2,14 @@ package com.codestates.seb41_main_034.auth.handler;
 
 import com.codestates.seb41_main_034.auth.utils.ErrorResponder;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 // 인증되지 않은 사용자가 요청을 한 경우 동작하는 핸들러 클래스 -> ErrorResponder에서 처리

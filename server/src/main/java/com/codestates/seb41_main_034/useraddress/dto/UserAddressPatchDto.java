@@ -1,9 +1,8 @@
 package com.codestates.seb41_main_034.useraddress.dto;
 
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-
-import javax.validation.constraints.Size;
 
 @AllArgsConstructor
 @Getter

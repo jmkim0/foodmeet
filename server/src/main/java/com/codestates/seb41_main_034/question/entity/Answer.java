@@ -2,12 +2,10 @@ package com.codestates.seb41_main_034.question.entity;
 
 import com.codestates.seb41_main_034.common.auditing.entity.Auditable;
 import com.codestates.seb41_main_034.question.dto.AnswerDto;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Type;
-
-import javax.persistence.*;
 
 @Getter
 @Setter
@@ -23,7 +21,6 @@ public class Answer extends Auditable {
     @JoinColumn(name = "question_id")
     private Question question;
 
-    @Type(type = "text")
     @Column(nullable = false)
     private String body;
 

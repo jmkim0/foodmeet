@@ -3,11 +3,11 @@ package com.codestates.seb41_main_034.user.entity;
 import com.codestates.seb41_main_034.common.Address;
 import com.codestates.seb41_main_034.common.auditing.entity.DateAuditable;
 import com.codestates.seb41_main_034.user.dto.UserDto;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 

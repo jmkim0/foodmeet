@@ -2,11 +2,11 @@ package com.codestates.seb41_main_034.product.dto;
 
 import com.codestates.seb41_main_034.product.entity.ProductCategory;
 import com.codestates.seb41_main_034.product.entity.ProductStatus;
+import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import javax.validation.constraints.PositiveOrZero;
-import javax.validation.constraints.Size;
 import java.util.List;
 
 @Getter

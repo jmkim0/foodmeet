@@ -6,10 +6,10 @@ import com.codestates.seb41_main_034.common.auditing.entity.Auditable;
 import com.codestates.seb41_main_034.order.dto.OrderDto;
 import com.codestates.seb41_main_034.order.dto.OrderProductDto;
 import com.codestates.seb41_main_034.product.entity.Product;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;

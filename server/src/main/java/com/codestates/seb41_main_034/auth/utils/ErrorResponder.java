@@ -1,11 +1,12 @@
 package com.codestates.seb41_main_034.auth.utils;
+
 import com.codestates.seb41_main_034.common.exception.response.ErrorInfo;
 import com.codestates.seb41_main_034.common.response.Response;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class ErrorResponder {

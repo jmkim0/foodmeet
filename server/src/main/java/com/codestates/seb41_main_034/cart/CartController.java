@@ -4,14 +4,14 @@ import com.codestates.seb41_main_034.cart.dto.CartItemDto;
 import com.codestates.seb41_main_034.cart.dto.CartItemPatchDto;
 import com.codestates.seb41_main_034.cart.dto.CartItemPostDto;
 import com.codestates.seb41_main_034.common.response.Response;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import javax.validation.constraints.Positive;
 import java.util.List;
 
 @AllArgsConstructor

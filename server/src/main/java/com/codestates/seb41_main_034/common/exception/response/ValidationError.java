@@ -1,9 +1,9 @@
 package com.codestates.seb41_main_034.common.exception.response;
 
+import jakarta.validation.ConstraintViolation;
 import lombok.Getter;
 import org.springframework.validation.BindingResult;
 
-import javax.validation.ConstraintViolation;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
